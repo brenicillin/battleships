@@ -21,18 +21,18 @@ RSpec.describe do
 
       expect(cell.ship).to be_a(nil)
     end
-    
+  end
+  describe '#cell can hold ships?' do
     it 'cell is empty' do
       cell = Cell.new("B4")
 
       expect(cell.empty?).to be_a(true)
     end
-  end
-  describe '#cell can hold ships?' do
+    
     it 'A ship can be placed' do
-      cruiser = Ship.new("Cruiser", 3)
-      cell.place_ship(cruiser)
-
+    cruiser = Ship.new("Cruiser", 3)
+    cell.place_ship(cruiser)
+    
       expect(cell.ship).to eq(Ship)
     end
     
