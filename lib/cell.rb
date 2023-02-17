@@ -29,18 +29,18 @@ class Cell
   end
 
   def render(*)
-    if @ship == nil && @fired_upon == false
-      p '.'
-    elsif @ship != nil && @fired_upon == false
+    if !@ship.nil? && @fired_upon == false
       p 'S'
-    elsif @ship == nil && @fired_upon == true
+    elsif @ship.nil? && @fired_upon == true
       p 'M'
-    elsif @ship != nil && @fired_upon == true
+    elsif !@ship.nil? && @fired_upon == true
       if @ship.sunk?
         p 'X'
-      else 
+      else
         p 'H'
       end
+    else @fired_upon == false
+        p '.'
+      end
     end
-  end
 end
