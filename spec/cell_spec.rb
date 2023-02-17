@@ -47,8 +47,15 @@ RSpec.describe do
     end
   end
 
-  describe '#fired_upon?'
-    it 'can fire upon'
+  describe '#fired_upon?' do
+
+    it 'knows when fired upon' do
+      cell = Cell.new('B4')
+
+      expect(cell.fired_upon?).to eq(false)
+    end
+
+    it 'can fire upon' do
       cell = Cell.new('B4')
 
       expect(cell.fired_upon?).to eq(false)
