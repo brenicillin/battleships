@@ -65,4 +65,18 @@ RSpec.describe do
       expect(cell.fired_upon?).to eq(true)
     end
   end
+
+  describe '#render' do
+    it 'can render .' do
+      cell = Cell.new('B4')
+
+      expect(cell.render).to eq('.')
+    end
+  end
+
+    it 'can render M for miss'
+    cell = Cell.new('B4')
+    cell.fire_upon
+
+    expect(cell.render).to eq('M')
 end
