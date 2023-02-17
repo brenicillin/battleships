@@ -65,14 +65,22 @@ RSpec.describe do
   end
 
   describe '#render' do
-    xit 'can render .' do
+    it 'can render.' do
       cell = Cell.new('B4')
 
       expect(cell.render).to eq('.')
+      # expect(cell.render(true)).to eq('S')
+    end
+    
+    it 'can render S for ship being present.' do
+      cell = Cell.new('B4')
+      cruiser = Ship.new('Cruiser', 3)
+      cell.place_ship(cruiser)
+
       expect(cell.render(true)).to eq('S')
     end
 
-    xit 'can render M for miss' do
+    it 'can render M for miss' do
     cell = Cell.new('B4')
     cell.fire_upon
 

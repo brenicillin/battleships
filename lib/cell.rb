@@ -27,4 +27,14 @@ class Cell
   def fired_upon?
     @fired_upon
   end
+
+  def render(*)
+    if @ship == nil && @fired_upon == false
+      p '.'
+      # require 'pry'; binding.pry
+    elsif @ship != nil 
+      p 'S'
+    # elsif
+    end
+  end
 end
