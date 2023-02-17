@@ -19,9 +19,9 @@ class Cell
 
   def fire_upon
     @fired_upon = true
-      # if @ship != nil
-      #   ship.health -= 1
-      # end
+    if @ship != nil
+      ship.hit
+    end
   end
 
   def fired_upon?
@@ -31,10 +31,16 @@ class Cell
   def render(*)
     if @ship == nil && @fired_upon == false
       p '.'
-      # require 'pry'; binding.pry
-    elsif @ship != nil 
+    elsif @ship != nil && @fired_upon == false
       p 'S'
-    # elsif
+    elsif @ship == nil && @fired_upon == true
+      p 'M'
+    elsif @ship != nil && @fired_upon == true
+      if @ship.sunk?
+        p 'X'
+      else 
+        p 'H'
+      end
     end
   end
 end

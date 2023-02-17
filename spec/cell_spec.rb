@@ -87,19 +87,19 @@ RSpec.describe do
     expect(cell.render).to eq('M')
     end
 
-    xit 'can render H for hit' do
+    it 'can render H for hit' do
       cruiser = Ship.new('Cruiser', 3)
       cell = Cell.new('B4')
       cell.place_ship(cruiser)
 
-      expect(cell.render).to eq('.')
+      expect(cell.render).to eq('S')
       
       cell.fire_upon
       
       expect(cell.render).to eq('H')
     end
 
-    xit 'can render X for sunken ship' do
+    it 'can render X for sunken ship' do
       cruiser = Ship.new('Cruiser', 3)
       cell_1 = Cell.new('B2')
       cell_2 = Cell.new('B3')
@@ -107,6 +107,10 @@ RSpec.describe do
       cell_1.place_ship(cruiser)
       cell_2.place_ship(cruiser)
       cell_3.place_ship(cruiser)
+      cell_1.fire_upon
+      cell_2.fire_upon
+      cell_3.fire_upon
+      # require 'pry'; binding.pry
 
       expect(cell_1.render).to eq('X')
       expect(cell_2.render).to eq('X')
