@@ -46,4 +46,16 @@ RSpec.describe do
       expect(cell.empty?).to eq(false)
     end
   end
+
+  describe '#fired_upon?'
+    it 'can fire upon'
+      cell = Cell.new('B4')
+
+      expect(cell.fired_upon?).to eq(false)
+
+      cell.fire_upon
+
+      expect(cell.fired_upon?).to eq(true)
+    end
+  end
 end
