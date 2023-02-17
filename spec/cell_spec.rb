@@ -1,6 +1,4 @@
-require 'rspec'
-require './lib/cell'
-require './lib/ship'
+require 'spec_helper'
 
 RSpec.describe do
   describe '#initilaize' do
