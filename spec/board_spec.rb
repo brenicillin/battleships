@@ -8,9 +8,10 @@ RSpec.describe Board do
       expect(board).to be_a(Board)
     end
     
-    it 'has hash of cells'
+    it 'has hash of cells' do
       board = Board.new
 
       expect(board.cells).to be_a(Hash)
+    end
   end
 end
