@@ -120,9 +120,9 @@ RSpec.describe Board do
       submarine = Ship.new('Submarine', 2)
       board.place(cruiser, ['A1', 'A2', 'A3'])
 
-      expect(board.validate_cell(['A1', 'B1'])).to eq(false)
-      expect(board.validate_cell(['A1', 'A2'])).to eq(false)
-      expect(board.validate_cell(['B1', 'B2'])).to eq(true)
+      expect(board.validate_cell(['A1', 'B1', 'C1'])).to eq(false)
+      expect(board.validate_cell(['A1', 'A2', 'A3'])).to eq(false)
+      expect(board.validate_cell(['B1', 'B2', 'B3'])).to eq(true)
     end
   end
 end
