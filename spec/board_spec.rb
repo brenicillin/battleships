@@ -61,7 +61,7 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ['A1', 'A2'])).to eq(true)
       expect(board.valid_placement?(cruiser, ['B1', 'C1', 'D1'])).to eq(true)
     end
-  end     #write helper method tests!!!
+  end
 
   describe '#place ships' do
     it 'can contain single ship in multiple cells' do
@@ -96,6 +96,33 @@ RSpec.describe Board do
 
       expect(board.render).to be_a(String)
       expect(board.render(true)).to be_a(String)
+    end
+  end
+
+  describe '#helper methods' do
+    it 'creates array of valid cruiser placements' do
+      board = Board.new
+
+      expect(board.valid_cruiser_placements).to be_a(Array)
+      expect(board.valid_cruiser_placements.length).to eq(16)
+    end
+
+    it 'creates array of valid submarine placements' do
+      board = Board.new
+      
+      expect(board.valid_submarine_placements).to be_a(Array)
+      expect(board.valid_submarine_placements.length).to eq(24)
+    end
+
+    it 'can validate cell placement' do
+      board = Board.new
+      cruiser = Ship.new('Cruiser', 3)
+      submarine = Ship.new('Submarine', 2)
+      board.place(cruiser, ['A1', 'A2', 'A3'])
+
+      expect(board.validate_cell(['A1', 'B1'])).to eq(false)
+      expect(board.validate_cell(['A1', 'A2'])).to eq(false)
+      expect(board.validate_cell(['B1', 'B2'])).to eq(true)
     end
   end
 end
