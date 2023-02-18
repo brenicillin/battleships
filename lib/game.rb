@@ -17,7 +17,7 @@ class Game
 
   def start
     welcome = "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit"
-    p welcome
+    welcome
   #   input = gets.chomp
   #   if input.upcase == 'P'
   #     game.setup_game
@@ -42,38 +42,67 @@ class Game
       cpu_sub_placement = @cpu_board.valid_submarine_placements.sample
       end
       @cpu_board.place(@cpu_submarine, cpu_sub_placement)
-    require 'pry'; binding.pry
-  end
-
-  def player_setup
+    end
+    
+    def player_setup
     puts 'I have laid out my ships on the grid.'
     puts 'You now need to lay out your two ships.'
     puts 'The cruiser is 3 units long and the submarine is 2 units long.'
-    # "#{@player_board.render(true)}"
     puts @player_board.render(true)
-
+    
     puts "Enter cruiser coordinates ex: A1 A2 A3 :"
     player_cruiser_coordinates = []
     puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
-      while @player_board.valid_placement?(@player_cruiser, player_cruiser_coordinates[0]) == false
-        puts "Those are invalid coordinates. Try again."
-        player_cruiser_coordinates = []
-        puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
-      end
+    while @player_board.valid_placement?(@player_cruiser, player_cruiser_coordinates[0]) == false
+      puts "Those are invalid coordinates. Try again."
+      player_cruiser_coordinates = []
+      puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
+    end
     @player_board.place(@player_cruiser, player_cruiser_coordinates[0])
     
     puts @player_board.render(true)
-
+    
     puts "Enter submarine coordinates ex: B2 C2 :"
     player_submarine_coordinates = []
     puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
-      while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates[0]) == false
-        puts "Those are invalid coordinates. Try again."
-        player_submarine_coordinates = []
-        puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
-      end
+    while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates[0]) == false
+      puts "Those are invalid coordinates. Try again."
+      player_submarine_coordinates = []
+      puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
+    end
     @player_board.place(@player_submarine, player_submarine_coordinates[0])
-
+    
     print @player_board.render(true)
   end
+  
+  def display_boards
+    puts "==========COMPUTER BOARD=========="
+    puts @cpu_board.render
+    puts "===========PLAYER BOARD==========="
+    puts @player_board.render(true) #ask about writing this test
+  end
+  
+  def player_shot
+    puts "Where do you want to shoot?"
+      target = gets.chomp.upcase
+      while @cpu_board.valid_coordinate?(target) == false
+        puts "please select a target coordinate on the board"
+        target = gets.chomp.upcase
+      end
+      while @cpu_board.cells[target].fired_upon? == true
+        puts "You have aleady fired upon that coordinate"
+        gets.chomp.upcase
+      end
+      @cpu_board.cells[target].fire_upon
+      if @cpu_board.cells[target].empty?
+        puts "Miss!"
+      elsif @cpu_board.cells[target].empty? == false
+        if @cpu_board.cells[target].ship.health >= 1 
+        puts "Hit!"
+        else
+          puts "You sunk my #{@cpu_board.cells[target].ship.name}!"
+        end
+      end
+  end
+  # require 'pry'; binding.pry
 end
