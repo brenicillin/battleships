@@ -28,19 +28,19 @@ class Cell
     @fired_upon
   end
 
-  def render(player = false)
-    if player = true && !@ship.nil? && @fired_upon == false
-      p 'S'
+  def render(view = false)
+    if view == true && !@ship.nil? && @fired_upon == false
+      'S'
     elsif @ship.nil? && @fired_upon == true
-      p 'M'
+      'M'
     elsif !@ship.nil? && @fired_upon == true
       if @ship.sunk?
-        p 'X'
+        'X'
       else
-        p 'H'
+        'H'
       end
     else @fired_upon == false
-        p '.'
+        '.'
       end
     end
 end
