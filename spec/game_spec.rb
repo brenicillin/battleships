@@ -37,11 +37,12 @@ RSpec.describe Game do
   end
 
   describe '#start_game' do
-    it 'places CPU ships automatically'
+    it 'places CPU ships automatically' do
       game = Game.new
       game.setup_game
       game.cpu_setup
 
       expect(game.cpu_board.render == game.cpu_board.render(true)).to eq(false)
+    end
   end
 end

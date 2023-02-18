@@ -32,4 +32,11 @@ class Game
     @player_submarine = Ship.new('Submarine', 2)
     @player_cruiser = Ship.new('Cruiser', 3)
   end
+
+  def cpu_setup
+    cpu_cruiser_placement = @cpu_board.valid_cruiser_placements.sample
+    @cpu_board.place(@cpu_cruiser, cpu_cruiser_placement)
+    cpu_sub_placement = @cpu_board.valid_submarine_placements.sample
+    @cpu_board.place(@cpu_submarine, cpu_sub_placement)
+  end
 end
