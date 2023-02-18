@@ -27,7 +27,7 @@ class Board
   end
 
   def valid_placement?(ship, ship_coordinates)
-    if ship.length == ship_coordinates.length
+    if ship.length == ship_coordinates.length && validate_cell(ship_coordinates)
       if ship.length == 3
         valid_cruiser_placements.include?(ship_coordinates)
       elsif ship.length == 2
@@ -38,24 +38,22 @@ class Board
   end
 
   def place(ship, ship_coordinates)
-    if valid_placement?(ship, ship_coordinates)
+    if valid_placement?(ship, ship_coordinates) && validate_cell(ship_coordinates)
       ship_coordinates.each do |cell|
         self.cells[cell].place_ship(ship)
       end
+    else false
     end
   end
 
 
-
-
-
-
-
-
-
-
-
   #helper methods
+
+  def validate_cell(ship_coordinates)
+    ship_coordinates.all? do |cell|
+      self.cells[cell].empty?
+    end
+  end
 
   def valid_cruiser_placements 
     valid_placements_c = [

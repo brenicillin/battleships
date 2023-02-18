@@ -75,7 +75,17 @@ RSpec.describe Board do
       expect(cell_1.ship).to eq(cruiser)
       expect(cell_2.ship).to eq(cruiser)
       expect(cell_3.ship).to eq(cruiser)
-      expect(cell_3.ship == cell_2.ship).to eq(true)
+      expect(cell_1.ship == cell_2.ship).to eq(true)
+      expect(cell_2.ship == cell_3.ship).to eq(true)
+    end
+
+    it 'cant overwrite other ships' do
+      board = Board.new
+      cruiser = Ship.new('Cruiser', 3)
+      submarine = Ship.new('Submarine', 2)
+      board.place(cruiser, ['A1', 'A2', 'A3'])
+      expect(board.valid_placement?(submarine, ['A1', 'B1'])).to eq(false)
+
     end
   end
 end
