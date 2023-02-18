@@ -45,6 +45,30 @@ class Game
     puts 'I have laid out my ships on the grid.'
     puts 'You now need to lay out your two ships.'
     puts 'The cruiser is 3 units long and the submarine is 2 units long.'
-    print "#{@player_board.render}"
+    "#{@player_board.render(true)}"
+
+    puts "Enter the squares for the Cruiser (3 spaces):"
+    player_cruiser_coordinates = []
+    puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
+      while @player_board.valid_placement?(@player_cruiser, player_cruiser_coordinates) == false
+        puts "Those are invalid coordinates. Try again."
+        player_cruiser_coordinates = []
+        puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
+      end
+    @player_board.place(@player_cruiser, player_cruiser_coordinates)
+    
+    print @player_board.render(true)
+
+    puts "Enter the squares for the Submarine (2 spaces):"
+    player_submarine_coordinates = []
+    puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
+      while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates) == false
+        puts "Those are invalid coordinates. Try again."
+        player_submarine_coordinates = []
+        puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
+      end
+    @player_board.place(@player_submarine, player_submarine_coordinates)
+
+    print @player_board.render(true)
   end
 end

@@ -39,9 +39,9 @@ RSpec.describe Game do
   describe '#start_game' do
     it 'places CPU ships automatically' do
       game = Game.new
-      require 'pry'; binding.pry
       game.setup_game
       game.cpu_setup
+      require 'pry'; binding.pry
       expect(game.cpu_board.render == game.cpu_board.render(true)).to eq(false)
     end
   end
