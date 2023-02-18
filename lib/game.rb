@@ -16,12 +16,13 @@ class Game
   end
 
   def start
-    welcome = 'Welcome to BATTLESHIP\nEnter p to play. Enter q to quit'
+    welcome = "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit"
     p welcome
-  # input = gets.chomp
-  # if input.upcase = 'P'
-  # game.setup
-  # else "Until next time..."
+  #   input = gets.chomp
+  #   if input.upcase == 'P'
+  #     game.setup_game
+  #   else p "Until next time..."
+  # end
   end
 
   def setup_game
@@ -38,5 +39,12 @@ class Game
     @cpu_board.place(@cpu_cruiser, cpu_cruiser_placement)
     cpu_sub_placement = @cpu_board.valid_submarine_placements.sample
     @cpu_board.place(@cpu_submarine, cpu_sub_placement)
+  end
+
+  def player_setup
+    puts 'I have laid out my ships on the grid.'
+    puts 'You now need to lay out your two ships.'
+    puts 'The cruiser is 3 units long and the submarine is 2 units long.'
+    print "#{@player_board.render}"
   end
 end
