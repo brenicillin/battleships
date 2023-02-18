@@ -5,7 +5,7 @@ class Game
               :player_board,
               :player_submarine,
               :player_cruiser
-              
+
   def initialize
     @cpu_board = nil
     @cpu_submarine = nil
@@ -24,7 +24,7 @@ class Game
   # else "Until next time..."
   end
 
-  def setup
+  def setup_game
     @cpu_board = Board.new
     @player_board = Board.new
     @cpu_submarine = Ship.new('Submarine', 2)
