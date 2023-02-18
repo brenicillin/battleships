@@ -84,8 +84,8 @@ RSpec.describe Board do
       cruiser = Ship.new('Cruiser', 3)
       submarine = Ship.new('Submarine', 2)
       board.place(cruiser, ['A1', 'A2', 'A3'])
+
       expect(board.valid_placement?(submarine, ['A1', 'B1'])).to eq(false)
-      
     end
   end
   describe '#render' do
@@ -93,7 +93,7 @@ RSpec.describe Board do
       board = Board.new
       cruiser = Ship.new('Cruiser', 3)
       board.place(cruiser, ['A1', 'A2', 'A3'])
-require 'pry'; binding.pry
+
       expect(board.render).to be_a(String)
       expect(board.render(true)).to be_a(String)
     end
