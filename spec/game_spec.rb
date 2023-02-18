@@ -18,19 +18,21 @@ RSpec.describe Game do
   describe '#setup' do
     it 'creates cpu ships and board' do
       game = Game.new
+      game.setup
 
-      expect(@cpu_board).to be_a(Board)
-      expect(@cpu_submarine).to be_a(Ship)
-      expect(@cpu_cruiser).to be_a(Ship)
+      expect(game.cpu_board).to be_a(Board)
+      expect(game.cpu_submarine).to be_a(Ship)
+      expect(game.cpu_cruiser).to be_a(Ship)
     end
   
 
     it 'creates player ships and board' do
       game = Game.new
+      game.setup
 
-      expect(@player_board).to be_a(Board)
-      expect(@player_cruiser).to be_a(Ship)
-      expect(@player_submarine).to be_a(Ship)
+      expect(game.player_board).to be_a(Board)
+      expect(game.player_cruiser).to be_a(Ship)
+      expect(game.player_submarine).to be_a(Ship)
     end
   end
 end
