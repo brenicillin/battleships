@@ -37,6 +37,18 @@ class Board
     end
   end
 
+
+
+
+
+
+
+
+
+
+
+  #helper methods
+  
   def valid_cruiser_placements 
     valid_placements_c = [
     %w(A1 B1 C1),
