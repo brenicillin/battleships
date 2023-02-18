@@ -27,9 +27,13 @@ class Board
   end
 
   def valid_placement?(ship, ship_coordinates)
-    ship.length == ship_coordinates.length
-    valid_cruiser_placements.each do |cells|
-      coordinates.include?(ship coordinates)
+    if ship.length == ship_coordinates.length
+      if ship.length == 3
+        valid_cruiser_placements.include?(ship_coordinates)
+      elsif ship.length == 2
+        valid_submarine_placements.include?(ship_coordinates)
+      end
+    else false
     end
   end
 
@@ -51,6 +55,35 @@ class Board
     %w(C2 C3 C4),
     %w(D1 D2 D3),
     %w(D2 D3 D4)
+    ]
+  end
+  
+  def valid_submarine_placements 
+    valid_placements_s = [
+    %w(A1 B1),
+    %w(B1 C1),
+    %w(C1 D1),
+    %w(A2 B2),
+    %w(B2 C2),
+    %w(C2 D2),
+    %w(A3 B3),
+    %w(B3 C3),
+    %w(C3 D3),
+    %w(A4 B4),
+    %w(B4 C4),
+    %w(C4 D4),
+    %w(A1 A2),
+    %w(A2 A3),
+    %w(A3 A4),
+    %w(B1 B2),
+    %w(B2 B3),
+    %w(B3 B4),
+    %w(C1 C2),
+    %w(C2 C3),
+    %w(C3 C4),
+    %w(D1 D2),
+    %w(D2 D3),
+    %w(D3 D4)
     ]
   end
 end
