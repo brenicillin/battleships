@@ -37,6 +37,14 @@ class Board
     end
   end
 
+  def place(ship, ship_coordinates)
+    if valid_placement?(ship, ship_coordinates)
+      ship_coordinates.each do |cell|
+        self.cells[cell].place_ship(ship)
+      end
+    end
+  end
+
 
 
 
@@ -48,7 +56,7 @@ class Board
 
 
   #helper methods
-  
+
   def valid_cruiser_placements 
     valid_placements_c = [
     %w(A1 B1 C1),
