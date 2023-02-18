@@ -38,36 +38,41 @@ class Game
     cpu_cruiser_placement = @cpu_board.valid_cruiser_placements.sample
     @cpu_board.place(@cpu_cruiser, cpu_cruiser_placement)
     cpu_sub_placement = @cpu_board.valid_submarine_placements.sample
-    @cpu_board.place(@cpu_submarine, cpu_sub_placement)
+      while @cpu_board.valid_placement?(@cpu_submarine, cpu_sub_placement) == false
+      cpu_sub_placement = @cpu_board.valid_submarine_placements.sample
+      end
+      @cpu_board.place(@cpu_submarine, cpu_sub_placement)
+    require 'pry'; binding.pry
   end
 
   def player_setup
     puts 'I have laid out my ships on the grid.'
     puts 'You now need to lay out your two ships.'
     puts 'The cruiser is 3 units long and the submarine is 2 units long.'
-    "#{@player_board.render(true)}"
+    # "#{@player_board.render(true)}"
+    puts @player_board.render(true)
 
-    puts "Enter the squares for the Cruiser (3 spaces):"
+    puts "Enter cruiser coordinates ex: A1 A2 A3 :"
     player_cruiser_coordinates = []
     puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
-      while @player_board.valid_placement?(@player_cruiser, player_cruiser_coordinates) == false
+      while @player_board.valid_placement?(@player_cruiser, player_cruiser_coordinates[0]) == false
         puts "Those are invalid coordinates. Try again."
         player_cruiser_coordinates = []
         puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
       end
-    @player_board.place(@player_cruiser, player_cruiser_coordinates)
+    @player_board.place(@player_cruiser, player_cruiser_coordinates[0])
     
-    print @player_board.render(true)
+    puts @player_board.render(true)
 
-    puts "Enter the squares for the Submarine (2 spaces):"
+    puts "Enter submarine coordinates ex: B2 C2 :"
     player_submarine_coordinates = []
     puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
-      while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates) == false
+      while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates[0]) == false
         puts "Those are invalid coordinates. Try again."
         player_submarine_coordinates = []
         puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
       end
-    @player_board.place(@player_submarine, player_submarine_coordinates)
+    @player_board.place(@player_submarine, player_submarine_coordinates[0])
 
     print @player_board.render(true)
   end

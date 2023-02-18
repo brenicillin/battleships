@@ -63,16 +63,6 @@ class Board
      end
   end
 
-  # def render(view = false)
-  #   p 'A B C D \n 1 #{@cell[A1].render }'
-  #   p 'A B C D \n 1 #{@cell[B1].render }'
-  #   p 'A B C D \n 1 #{@cell[C1].render }'
-  #   p 'A B C D \n 1 #{@cell[D1].render }'
-
-
-  # end
-
-
   #helper methods
 
   def validate_cell(ship_coordinates)
