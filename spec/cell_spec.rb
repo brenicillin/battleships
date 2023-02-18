@@ -78,6 +78,7 @@ RSpec.describe do
       cell.place_ship(cruiser)
 
       expect(cell.render(true)).to eq('S')
+      expect(cell.render).to eq('.')
     end
 
     it 'can render M for miss' do
@@ -92,7 +93,7 @@ RSpec.describe do
       cell = Cell.new('B4')
       cell.place_ship(cruiser)
 
-      expect(cell.render).to eq('S')
+      expect(cell.render(true)).to eq('S')
       
       cell.fire_upon
       
@@ -110,7 +111,7 @@ RSpec.describe do
       cell_1.fire_upon
       cell_2.fire_upon
       cell_3.fire_upon
-      # require 'pry'; binding.pry
+      require 'pry'; binding.pry
 
       expect(cell_1.render).to eq('X')
       expect(cell_2.render).to eq('X')

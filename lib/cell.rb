@@ -28,8 +28,8 @@ class Cell
     @fired_upon
   end
 
-  def render(player = false)
-    if player = true && !@ship.nil? && @fired_upon == false
+  def render(view = false)
+    if view == true && !@ship.nil? && @fired_upon == false
       p 'S'
     elsif @ship.nil? && @fired_upon == true
       p 'M'
