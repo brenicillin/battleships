@@ -26,7 +26,31 @@ class Board
     @cells.has_key?(coordinate)
   end
 
-  def valid_placement?(ship, coordinates)
-    ship.length == coordinates.length
+  def valid_placement?(ship, ship_coordinates)
+    ship.length == ship_coordinates.length
+    valid_cruiser_placements.each do |cells|
+      coordinates.include?(ship coordinates)
+    end
+  end
+
+  def valid_cruiser_placements 
+    valid_placements_c = [
+    %w(A1 B1 C1),
+    %w(B1 C1 D1),
+    %w(A2 B2 C2),
+    %w(B2 C2 D2),
+    %w(A3 B3 C3),
+    %w(B3 C3 D3),
+    %w(A4 B4 C4),
+    %w(B4 C4 D4),
+    %w(A1 A2 A3),
+    %w(A2 A3 A4),
+    %w(B1 B2 B3),
+    %w(B2 B3 B4),
+    %w(C1 C2 C3),
+    %w(C2 C3 C4),
+    %w(D1 D2 D3),
+    %w(D2 D3 D4)
+    ]
   end
 end
