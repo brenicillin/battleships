@@ -111,7 +111,6 @@ RSpec.describe do
       cell_1.fire_upon
       cell_2.fire_upon
       cell_3.fire_upon
-      require 'pry'; binding.pry
 
       expect(cell_1.render).to eq('X')
       expect(cell_2.render).to eq('X')

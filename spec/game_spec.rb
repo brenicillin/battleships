@@ -8,9 +8,10 @@ RSpec.describe Game do
       expect(game).to be_a(Game)
     end
 
-    it 'has welcome message'
+    it 'has welcome message' do
     game = Game.new
 
     expect(game.start).to eq('Welcome to BATTLESHIP\nEnter p to play. Enter q to quit')
+    end
   end
 end
