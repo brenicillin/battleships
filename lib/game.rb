@@ -26,6 +26,7 @@ class Game
       setup_game
       cpu_setup
       player_setup
+      clear
       play
     else p "Until next time..."
     end
