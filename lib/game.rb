@@ -20,6 +20,9 @@ class Game
     print welcome
     input = gets.chomp
     if input.upcase == 'P'
+      setup_game
+      cpu_setup
+      player_setup
       play
     else p "Until next time..."
     end
@@ -139,17 +142,14 @@ class Game
   
   def play
     while player_has_lost? == false && cpu_has_lost? == false
-      setup_game
-      cpu_setup
-      player_setup
       display_boards
       player_shot
       cpu_shot
     end
     if cpu_has_lost? == true 
-      puts "You just lost to a computer!"
-    elsif player_has_lost? == true
       puts "Congrats! You've Won!!"
+    elsif player_has_lost? == true
+      puts "You just lost to a computer!"
     end
     display_boards
     start
