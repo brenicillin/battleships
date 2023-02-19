@@ -7,6 +7,6 @@ Next, you will place your submarine by entering 2 spaces (currently limited to l
 you will be prompted again with 'invalid placement').
 
 You and the CPU will then take turns firing on each other, with the results of each shot displayed above the current board state. The board will update
-after each shot, reflecting a H for Hit, M for Miss, X for sunken ship, or . if none of the above. Cells on your board containing a ship are marked with S.
+after each shot, reflecting a H for Hit, M for Miss, X for sunken ship, or "." if none of the above. Cells on your board containing a ship are marked with S.
 
 Still a work in progress! Fair winds and following seas!
