@@ -86,7 +86,7 @@ class Game
     puts "Where do you want to shoot?"
       target = gets.chomp.upcase
       while @cpu_board.valid_coordinate?(target) == false
-        puts "please select a target coordinate on the board"
+        puts "Please select a target coordinate on the board"
         target = gets.chomp.upcase
       end
       while @cpu_board.cells[target].fired_upon? == true
@@ -101,8 +101,31 @@ class Game
         puts "Hit!"
         else
           puts "You sunk my #{@cpu_board.cells[target].ship.name}!"
+          if @cpu_cruiser.sunk? && @cpu_submarine.sunk?
+            puts "Congrats! You've Won!!"
+          end
         end
       end
-  end
+    end
+    
+    def cpu_shot
+      target = @player_board.cells.keys.sample
+      while @player_board.cells[target].fired_upon? == true
+        target = @player_board.cells.keys.sample
+      end
+      @player_board.cells[target].fire_upon
+      if @player_board.cells[target].empty?
+        puts "Miss!"
+      elsif @player_board.cells[target].empty? == false
+        if @player_board.cells[target].ship.health >= 1 
+        puts "Hit!"
+        else
+          puts "I sunk your #{@player_board.cells[target].ship.name}!"
+          if @player_cruiser.sunk? && @player_submarine.sunk?
+            puts "You just lost to a computer!"
+          end
+        end
+      end
+    end
   # require 'pry'; binding.pry
 end
