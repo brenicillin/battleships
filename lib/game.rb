@@ -17,12 +17,12 @@ class Game
 
   def start
     welcome = "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit"
-    welcome
-  #   input = gets.chomp
-  #   if input.upcase == 'P'
-  #     game.setup_game
-  #   else p "Until next time..."
-  # end
+    print welcome
+    input = gets.chomp
+    if input.upcase == 'P'
+      play
+    else p "Until next time..."
+    end
   end
 
   def setup_game
@@ -44,7 +44,7 @@ class Game
       @cpu_board.place(@cpu_submarine, cpu_sub_placement)
     end
     
-    def player_setup
+  def player_setup
     puts 'I have laid out my ships on the grid.'
     puts 'You now need to lay out your two ships.'
     puts 'The cruiser is 3 units long and the submarine is 2 units long.'
@@ -76,6 +76,7 @@ class Game
   end
   
   def display_boards
+    puts " "
     puts "==========COMPUTER BOARD=========="
     puts @cpu_board.render
     puts "===========PLAYER BOARD==========="
@@ -101,31 +102,57 @@ class Game
         puts "Hit!"
         else
           puts "You sunk my #{@cpu_board.cells[target].ship.name}!"
-          if @cpu_cruiser.sunk? && @cpu_submarine.sunk?
-            puts "Congrats! You've Won!!"
-          end
+          # if @cpu_cruiser.sunk? && @cpu_submarine.sunk?
+          #   puts "Congrats! You've Won!!"
+          # end
         end
       end
-    end
+  end
     
-    def cpu_shot
+  def cpu_shot
+    target = @player_board.cells.keys.sample
+    while @player_board.cells[target].fired_upon? == true
       target = @player_board.cells.keys.sample
-      while @player_board.cells[target].fired_upon? == true
-        target = @player_board.cells.keys.sample
-      end
-      @player_board.cells[target].fire_upon
-      if @player_board.cells[target].empty?
-        puts "Miss!"
-      elsif @player_board.cells[target].empty? == false
-        if @player_board.cells[target].ship.health >= 1 
+    end
+    @player_board.cells[target].fire_upon
+    if @player_board.cells[target].empty?
+      puts "Miss!"
+    elsif @player_board.cells[target].empty? == false
+      if @player_board.cells[target].ship.health >= 1 
         puts "Hit!"
-        else
-          puts "I sunk your #{@player_board.cells[target].ship.name}!"
-          if @player_cruiser.sunk? && @player_submarine.sunk?
-            puts "You just lost to a computer!"
-          end
-        end
+      else
+        puts "I sunk your #{@player_board.cells[target].ship.name}!"
+        # if @player_cruiser.sunk? && @player_submarine.sunk?
+        #   puts "You just lost to a computer!"
+        # end
       end
     end
-  # require 'pry'; binding.pry
+  end
+    
+  def player_has_lost?
+    @player_cruiser.sunk? && @player_submarine.sunk?
+  end
+  
+  def cpu_has_lost?
+    @cpu_cruiser.sunk? && @cpu_submarine.sunk?
+  end
+  
+  def play
+    while player_has_lost? == false && cpu_has_lost? == false
+      setup_game
+      cpu_setup
+      player_setup
+      display_boards
+      player_shot
+      cpu_shot
+    end
+    if cpu_has_lost? == true 
+      puts "You just lost to a computer!"
+    elsif player_has_lost? == true
+      puts "Congrats! You've Won!!"
+    end
+    display_boards
+    start
+  end
+      # require 'pry'; binding.pry
 end
