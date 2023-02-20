@@ -41,16 +41,7 @@ RSpec.describe Game do
       game = Game.new
       game.setup_game
       game.cpu_setup
-      require 'pry'; binding.pry
       expect(game.cpu_board.render == game.cpu_board.render(true)).to eq(false)
-    end
-  end
-  
-  describe '#cpu shot' do
-    it 'takes a shot' do
-      game = Game.new
-      game.setup_game
-      game.cpu_shot
     end
   end
 end
