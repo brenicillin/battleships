@@ -41,16 +41,18 @@ RSpec.describe Game do
       game = Game.new
       game.setup_game
       game.cpu_setup
+      
       expect(game.cpu_board.render == game.cpu_board.render(true)).to eq(false)
-      # require 'pry'; binding.pry
     end
-  describe
-    it '' do
+  end
+
+  describe '#cpu_shot' do
+    it 'fires upon a cell' do
       game = Game.new
       game.setup_game
       game.cpu_setup
-      game.comp_shot
-# require 'pry'; binding.pry
+      game.cpus_shot
+     
       expect(game.player_board.cells[game.cpu_shot].fired_upon?).to eq(true)
     end
   end

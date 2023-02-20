@@ -5,7 +5,7 @@ class Game
               :player_board,
               :player_submarine,
               :player_cruiser,
-              :cpu_shot
+              :cpu_shot,
 
   def initialize
     @cpu_board = nil
@@ -94,7 +94,7 @@ class Game
     print " "
   end
   
-  def player_shot
+  def players_shot
     puts "Where do you want to shoot?"
       @player_shot = gets.chomp.upcase
         while @cpu_board.valid_coordinate?(@player_shot) == false
@@ -108,7 +108,7 @@ class Game
         @cpu_board.cells[@player_shot].fire_upon        
   end
     
-  def comp_shot
+  def cpus_shot
     @cpu_shot = @player_board.cells.keys.sample
     while @player_board.cells[@cpu_shot].fired_upon? == true
       @cpu_shot = @player_board.cells.keys.sample
@@ -164,8 +164,8 @@ class Game
   def play
     while player_has_lost? == false && cpu_has_lost? == false
       display_boards
-      player_shot
-      cpu_shot
+      players_shot
+      cpus_shot
       clear
       shot_results
     end
