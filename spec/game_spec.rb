@@ -42,6 +42,16 @@ RSpec.describe Game do
       game.setup_game
       game.cpu_setup
       expect(game.cpu_board.render == game.cpu_board.render(true)).to eq(false)
+      # require 'pry'; binding.pry
+    end
+  describe
+    it '' do
+      game = Game.new
+      game.setup_game
+      game.cpu_setup
+      game.comp_shot
+# require 'pry'; binding.pry
+      expect(game.player_board.cells[game.cpu_shot].fired_upon?).to eq(true)
     end
   end
 end

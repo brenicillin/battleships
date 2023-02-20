@@ -4,7 +4,8 @@ class Game
               :cpu_cruiser,
               :player_board,
               :player_submarine,
-              :player_cruiser
+              :player_cruiser,
+              :cpu_shot
 
   def initialize
     @cpu_board = nil
@@ -85,12 +86,12 @@ class Game
   end
   
   def display_boards
-    puts " "
-    puts "==========COMPUTER BOARD=========="
-    puts @cpu_board.render
-    puts "===========PLAYER BOARD==========="
-    puts @player_board.render(true) #ask about writing this test
-    puts " "
+    print " "
+    print "==========COMPUTER BOARD=========="
+    print @cpu_board.render
+    print "===========PLAYER BOARD==========="
+    print @player_board.render(true) #ask about writing this test
+    print " "
   end
   
   def player_shot
@@ -107,7 +108,7 @@ class Game
         @cpu_board.cells[@player_shot].fire_upon        
   end
     
-  def cpu_shot
+  def comp_shot
     @cpu_shot = @player_board.cells.keys.sample
     while @player_board.cells[@cpu_shot].fired_upon? == true
       @cpu_shot = @player_board.cells.keys.sample
@@ -117,31 +118,31 @@ class Game
 
   def cpu_shot_results
     if @player_board.cells[@cpu_shot].empty?
-      puts "My shot on #{@cpu_shot} was a MISS!"
+      pp "My shot on #{@cpu_shot} was a MISS!"
     elsif @player_board.cells[@cpu_shot].empty? == false
       if @player_board.cells[@cpu_shot].ship.health >= 1 
-        puts "My shot on #{@cpu_shot} was a HIT!"
+        pp "My shot on #{@cpu_shot} was a HIT!"
       else
-        puts "My shot on #{@cpu_shot} sunk your #{@player_board.cells[@cpu_shot].ship.name}!"
+        pp "My shot on #{@cpu_shot} sunk your #{@player_board.cells[@cpu_shot].ship.name}!"
       end
     end
   end
 
   def player_shot_results
     if @cpu_board.cells[@player_shot].empty?
-      puts "Your shot on #{@player_shot} was a MISS!"
+      pp "Your shot on #{@player_shot} was a MISS!"
     elsif @cpu_board.cells[@player_shot].empty? == false
       if @cpu_board.cells[@player_shot].ship.health >= 1 
-      puts "Your shot on #{@player_shot} was a HIT!"
+      pp "Your shot on #{@player_shot} was a HIT!"
       else
-        puts "Your shot on #{@player_shot} sunk my #{@cpu_board.cells[@player_shot].ship.name}!"
+        pp "Your shot on #{@player_shot} sunk my #{@cpu_board.cells[@player_shot].ship.name}!"
       end
     end
   end
 
   def shot_results
-    player_shot_results
     cpu_shot_results
+    player_shot_results
   end
     
   def player_has_lost?
@@ -172,6 +173,7 @@ class Game
       clear
       display_boards
       puts "Congrats! You've Won!!"
+      # require 'pry'; binding.pry
     elsif player_has_lost? == true
       clear
       display_boards
