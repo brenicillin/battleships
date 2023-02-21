@@ -10,10 +10,6 @@ class Ship
 
   def sunk?
     @health.zero?
-      # true
-    # else
-    #   false
-    # end
   end
 
   def hit

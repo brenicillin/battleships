@@ -10,7 +10,6 @@ class Cell
   end
 
   def empty?
-    # @ship == nil
     @ship.nil?
   end
 
@@ -21,8 +20,6 @@ class Cell
   def fire_upon
     @fired_upon = true
     ship.hit if !@ship.nil?
-      # ship.hit
-    # end
   end
 
   def fired_upon?
