@@ -5,7 +5,7 @@ class Game
               :player_board,
               :player_submarine,
               :player_cruiser,
-              :cpu_shot,
+              :cpu_shot
 
   def initialize
     @cpu_board = nil
@@ -173,7 +173,6 @@ class Game
       clear
       display_boards
       puts "Congrats! You've Won!!"
-      # require 'pry'; binding.pry
     elsif player_has_lost? == true
       clear
       display_boards

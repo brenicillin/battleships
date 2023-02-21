@@ -10,7 +10,8 @@ class Cell
   end
 
   def empty?
-    @ship == nil
+    # @ship == nil
+    @ship.nil?
   end
 
   def place_ship(ship)
@@ -19,7 +20,7 @@ class Cell
 
   def fire_upon
     @fired_upon = true
-    if @ship != nil
+    if !@ship.nil?
       ship.hit
     end
   end
@@ -41,6 +42,6 @@ class Cell
       end
     else @fired_upon == false
         '.'
-      end
     end
+  end
 end
