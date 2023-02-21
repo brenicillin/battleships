@@ -23,7 +23,7 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
-    @cells.key?(coordinate)
+    @cells.has_key?(coordinate)
   end
 
   def valid_placement?(ship, ship_coordinates)
@@ -52,6 +52,7 @@ class Board
     else
       rendered
     end
+    # require 'pry'; binding.pry
   end
   # def render(view = false)
   #   if view == true

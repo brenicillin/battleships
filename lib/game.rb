@@ -46,11 +46,11 @@ class Game
     cpu_cruiser_placement = @cpu_board.valid_cruiser_placements.sample
     @cpu_board.place(@cpu_cruiser, cpu_cruiser_placement)
     cpu_sub_placement = @cpu_board.valid_submarine_placements.sample
-      while @cpu_board.valid_placement?(@cpu_submarine, cpu_sub_placement) == false
+    while @cpu_board.valid_placement?(@cpu_submarine, cpu_sub_placement) == false
       cpu_sub_placement = @cpu_board.valid_submarine_placements.sample
-      end
-      @cpu_board.place(@cpu_submarine, cpu_sub_placement)
     end
+    @cpu_board.place(@cpu_submarine, cpu_sub_placement)
+  end
     
   def player_setup
     clear
@@ -63,7 +63,7 @@ class Game
     player_cruiser_coordinates = []
     puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
     while @player_board.valid_placement?(@player_cruiser, player_cruiser_coordinates[0]) == false
-      puts "Those are invalid coordinates. Try again."
+      prints 'Those are invalid coordinates. Try again.'
       player_cruiser_coordinates = []
       puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
     end
@@ -86,26 +86,27 @@ class Game
   end
   
   def display_boards
-    print " "
-    print "==========COMPUTER BOARD=========="
+    print "\n"
+    print "==========COMPUTER BOARD==========\n"
     print @cpu_board.render
-    print "===========PLAYER BOARD==========="
+    print "\n"
+    print "===========PLAYER BOARD===========\n"
     print @player_board.render(true) #ask about writing this test
-    print " "
+    print "\n"
   end
   
   def players_shot
-    puts "Where do you want to shoot?"
+    print "\nWhere do you want to shoot?  Enter coordinate.\n"
+    @player_shot = gets.chomp.upcase
+    while @cpu_board.valid_coordinate?(@player_shot) == false
+      puts 'Please select a target coordinate on the board'
       @player_shot = gets.chomp.upcase
-        while @cpu_board.valid_coordinate?(@player_shot) == false
-          puts "Please select a target coordinate on the board"
-          @player_shot = gets.chomp.upcase
-        end
-        while @cpu_board.cells[@player_shot].fired_upon? == true
-          puts "You have aleady fired upon that coordinate"
-          @player_shot = gets.chomp.upcase
-        end
-        @cpu_board.cells[@player_shot].fire_upon        
+    end
+    while @cpu_board.cells[@player_shot].fired_upon? == true
+      puts 'You have aleady fired upon that coordinate'
+      @player_shot = gets.chomp.upcase
+    end
+    @cpu_board.cells[@player_shot].fire_upon
   end
     
   def cpus_shot
@@ -169,14 +170,14 @@ class Game
       clear
       shot_results
     end
-    if cpu_has_lost? == true 
+    if cpu_has_lost? == true
       clear
       display_boards
-      puts "Congrats! You've Won!!"
+      puts "\nCongrats! You have Won!!\n"
     elsif player_has_lost? == true
       clear
       display_boards
-      puts "You just lost to a computer!"
+      puts "\nYou just lost to a computer!"
     end
     puts '===================='
     start
