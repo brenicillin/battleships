@@ -59,11 +59,11 @@ class Game
     puts 'The cruiser is 3 units long and the submarine is 2 units long.'
     puts @player_board.render(true)
     
-    puts "Enter cruiser coordinates ex: A1 A2 A3 :"
+    puts "\nEnter cruiser coordinates: ex: A1 A2 A3"
     player_cruiser_coordinates = []
     puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
     while @player_board.valid_placement?(@player_cruiser, player_cruiser_coordinates[0]) == false
-      prints 'Those are invalid coordinates. Try again.'
+      puts 'Those are invalid coordinates. Try again.'
       player_cruiser_coordinates = []
       puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
     end
@@ -72,7 +72,7 @@ class Game
     clear
     puts @player_board.render(true)
     
-    puts "Enter submarine coordinates ex: B2 C2 :"
+    puts "\nEnter submarine coordinates: ex: B2 C2"
     player_submarine_coordinates = []
     puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
     while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates[0]) == false
@@ -121,7 +121,7 @@ class Game
     if @player_board.cells[@cpu_shot].empty?
       pp "My shot on #{@cpu_shot} was a MISS!"
     elsif @player_board.cells[@cpu_shot].empty? == false
-      if @player_board.cells[@cpu_shot].ship.health >= 1 
+      if @player_board.cells[@cpu_shot].ship.health >= 1
         pp "My shot on #{@cpu_shot} was a HIT!"
       else
         pp "My shot on #{@cpu_shot} sunk your #{@player_board.cells[@cpu_shot].ship.name}!"
@@ -133,7 +133,7 @@ class Game
     if @cpu_board.cells[@player_shot].empty?
       pp "Your shot on #{@player_shot} was a MISS!"
     elsif @cpu_board.cells[@player_shot].empty? == false
-      if @cpu_board.cells[@player_shot].ship.health >= 1 
+      if @cpu_board.cells[@player_shot].ship.health >= 1
       pp "Your shot on #{@player_shot} was a HIT!"
       else
         pp "Your shot on #{@player_shot} sunk my #{@cpu_board.cells[@player_shot].ship.name}!"
