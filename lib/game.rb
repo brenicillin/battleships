@@ -73,14 +73,14 @@ class Game
     puts @player_board.render(true)
     
     puts "\nEnter submarine coordinates: ex: B2 C2"
-    player_submarine_coordinates = []
-    puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
-    while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates[0]) == false
+    player_submarine_coordinates = gets.chomp.upcase.split
+    print player_submarine_coordinates.to_s
+    while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates) == false
       puts "Those are invalid coordinates. Try again."
-      player_submarine_coordinates = []
-      puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
+      player_submarine_coordinates = gets.chomp.upcase.split
+      print player_submarine_coordinates.to_s
     end
-    @player_board.place(@player_submarine, player_submarine_coordinates[0])
+    @player_board.place(@player_submarine, player_submarine_coordinates)
     
     print @player_board.render(true)
   end
