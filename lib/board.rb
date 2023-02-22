@@ -78,22 +78,22 @@ class Board
       cells[cell].empty?
     end
   end
-  
+
   def coordinates_consecutive_horizontal?(coordinates)
     if @horizontal_cells[0].each_cons(coordinates.length).any? do |cells|
-      coordinates == cells
+       coordinates == cells
       end
         true
       elsif @horizontal_cells[1].each_cons(coordinates.length).any? do |cells|
-      coordinates == cells
+        coordinates == cells
       end
         true
       elsif @horizontal_cells[2].each_cons(coordinates.length).any? do |cells|
-      coordinates == cells
+        coordinates == cells
       end
         true
       elsif @horizontal_cells[3].each_cons(coordinates.length).any? do |cells|
-      coordinates == cells
+        coordinates == cells
       end
         true
       else 
@@ -103,28 +103,28 @@ class Board
 
   def coordinates_consecutive_vertical?(coordinates)
     if @vertical_cells[0].each_cons(coordinates.length).any? do |cells|
-      coordinates == cells
+        coordinates == cells
       end
-       true
+      true
       elsif @vertical_cells[1].each_cons(coordinates.length).any? do |cells|
       coordinates == cells
       end
-        true
+      true
       elsif @vertical_cells[2].each_cons(coordinates.length).any? do |cells|
       coordinates == cells
       end
-        true
+      true
       elsif @vertical_cells[3].each_cons(coordinates.length).any? do |cells|
-      coordinates == cells
+        coordinates == cells
       end
-        true
-    else 
-      false
+      true
+      else 
+        false
     end
   end
 
   def valid_cruiser_placements 
-    [
+      [
       %w(A1 B1 C1),
       %w(B1 C1 D1),
       %w(A2 B2 C2),
