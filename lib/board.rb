@@ -1,5 +1,7 @@
 class Board
-  attr_reader :cells
+  attr_reader :cells,
+              :vertical_cells,
+              :horizontal_cells
 
   def initialize
     @cells = {
@@ -20,23 +22,18 @@ class Board
       'D3'=>Cell.new('D3'),
       'D4'=>Cell.new('D4'),
     }
+    @horizontal_cells = [['A1', 'A2', 'A3', 'A4'],['B1','B2','B3','B4'],['C1','C2','C3','C4'],['D1','D2','D3','D4']]
+    @vertical_cells = [['A1','B1','C1','D1'],['A2','B2','C2','D2'],['A3','B3','C3','D3'],['A4','B4','C4','D4']]
   end
-
-  def valid_coordinate?(coordinate)
-    @cells.has_key?(coordinate)
-  end
-
-  def valid_placement?(ship, ship_coordinates)
-    if ship.length == ship_coordinates.length && validate_cell(ship_coordinates)
-      if ship.length == 3
-        valid_cruiser_placements.include?(ship_coordinates)
-      elsif ship.length == 2
-        valid_submarine_placements.include?(ship_coordinates)
-      end
-    else false
+  
+  def valid_placement?(ship, coordinates)
+    if ship.length == coordinates.length && validate_cell(coordinates)
+      coordinates_consecutive_horizontal?(coordinates) || coordinates_consecutive_vertical?(coordinates)
+    else 
+      false
     end
   end
-
+  
   def place(ship, ship_coordinates)
     if valid_placement?(ship, ship_coordinates) && validate_cell(ship_coordinates)
       ship_coordinates.each do |cell|
@@ -45,7 +42,7 @@ class Board
     else false
     end
   end
-
+  
   def render(view = false)
     if view == true
       rendered_true
@@ -53,8 +50,12 @@ class Board
       rendered
     end
   end
-
+  
   #helper methods
+  
+  def valid_coordinate?(coordinate)
+    @cells.has_key?(coordinate)
+  end
   
   def rendered_true
     "  1 2 3 4 \n" +
@@ -63,7 +64,7 @@ class Board
     "C #{@cells["C1"].render(true)} #{@cells["C2"].render(true)} #{@cells["C3"].render(true)} #{@cells["C4"].render(true)}\n" +
     "D #{@cells["D1"].render(true)} #{@cells["D2"].render(true)} #{@cells["D3"].render(true)} #{@cells["D4"].render(true)}"
   end
-
+  
   def rendered
     "  1 2 3 4 \n" +
     "A #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render}\n" +
@@ -71,15 +72,59 @@ class Board
     "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render}\n" +
     "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render}"
   end
-
+  
   def validate_cell(ship_coordinates)
-    ship_coordinates.all? do |cell|
+    ship_coordinates.each.all? do |cell|
       cells[cell].empty?
     end
   end
 
+  def coordinates_consecutive_horizontal?(coordinates)
+    if @horizontal_cells[0].each_cons(coordinates.length).any? do |cells|
+       coordinates == cells
+      end
+        true
+      elsif @horizontal_cells[1].each_cons(coordinates.length).any? do |cells|
+        coordinates == cells
+      end
+        true
+      elsif @horizontal_cells[2].each_cons(coordinates.length).any? do |cells|
+        coordinates == cells
+      end
+        true
+      elsif @horizontal_cells[3].each_cons(coordinates.length).any? do |cells|
+        coordinates == cells
+      end
+        true
+      else 
+        false
+    end
+  end
+
+  def coordinates_consecutive_vertical?(coordinates)
+    if @vertical_cells[0].each_cons(coordinates.length).any? do |cells|
+        coordinates == cells
+      end
+      true
+      elsif @vertical_cells[1].each_cons(coordinates.length).any? do |cells|
+      coordinates == cells
+      end
+      true
+      elsif @vertical_cells[2].each_cons(coordinates.length).any? do |cells|
+      coordinates == cells
+      end
+      true
+      elsif @vertical_cells[3].each_cons(coordinates.length).any? do |cells|
+        coordinates == cells
+      end
+      true
+      else 
+        false
+    end
+  end
+
   def valid_cruiser_placements 
-    [
+      [
       %w(A1 B1 C1),
       %w(B1 C1 D1),
       %w(A2 B2 C2),
@@ -98,33 +143,45 @@ class Board
       %w(D2 D3 D4)
     ]
   end
-
+  
   def valid_submarine_placements
     [
-      %w(A1 B1),
-      %w(B1 C1),
-      %w(C1 D1),
-      %w(A2 B2),
-      %w(B2 C2),
-      %w(C2 D2),
-      %w(A3 B3),
-      %w(B3 C3),
-      %w(C3 D3),
-      %w(A4 B4),
-      %w(B4 C4),
-      %w(C4 D4),
-      %w(A1 A2),
-      %w(A2 A3),
-      %w(A3 A4),
-      %w(B1 B2),
-      %w(B2 B3),
-      %w(B3 B4),
-      %w(C1 C2),
-      %w(C2 C3),
-      %w(C3 C4),
-      %w(D1 D2),
-      %w(D2 D3),
-      %w(D3 D4)
-    ]
-  end
+        %w(A1 B1),
+        %w(B1 C1),
+        %w(C1 D1),
+        %w(A2 B2),
+        %w(B2 C2),
+        %w(C2 D2),
+        %w(A3 B3),
+        %w(B3 C3),
+        %w(C3 D3),
+        %w(A4 B4),
+        %w(B4 C4),
+        %w(C4 D4),
+        %w(A1 A2),
+        %w(A2 A3),
+        %w(A3 A4),
+        %w(B1 B2),
+        %w(B2 B3),
+        %w(B3 B4),
+        %w(C1 C2),
+        %w(C2 C3),
+        %w(C3 C4),
+        %w(D1 D2),
+        %w(D2 D3),
+        %w(D3 D4)
+      ]
+    end
+    
+    # def valid_placement?(ship, ship_coordinates)
+    #   if ship.length == ship_coordinates.length && validate_cell(ship_coordinates)
+    #     if ship.length == 3
+    #       valid_cruiser_placements.include?(ship_coordinates)
+    #     elsif ship.length == 2
+    #       valid_submarine_placements.include?(ship_coordinates)
+    #     end
+    #   else false
+    #   end
+    # end
+  # end
 end
