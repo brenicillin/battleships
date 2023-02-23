@@ -29,8 +29,7 @@ class Board
   def valid_placement?(ship, coordinates)
     if ship.length == coordinates.length && validate_cell(coordinates)
       coordinates_consecutive_horizontal?(coordinates) || coordinates_consecutive_vertical?(coordinates)
-    else 
-      false
+    else false
     end
   end
   

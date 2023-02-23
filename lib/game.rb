@@ -29,7 +29,7 @@ class Game
       player_setup
       clear
       play
-    else p "Until next time..."
+    else print "\nUntil next time...\n"
     end
   end
 
@@ -43,13 +43,7 @@ class Game
   end
 
   def cpu_setup
-    cpu_cruiser_placement = @cpu_board.valid_cruiser_placements.sample
-    @cpu_board.place(@cpu_cruiser, cpu_cruiser_placement)
-    cpu_sub_placement = @cpu_board.valid_submarine_placements.sample
-    while @cpu_board.valid_placement?(@cpu_submarine, cpu_sub_placement) == false
-      cpu_sub_placement = @cpu_board.valid_submarine_placements.sample
-    end
-    @cpu_board.place(@cpu_submarine, cpu_sub_placement)
+    cpu_ships_placement
   end
     
   def player_setup
@@ -153,6 +147,16 @@ class Game
     print "===========PLAYER BOARD===========\n"
     print @player_board.render(true)
     print "\n"
+  end
+
+  def cpu_ships_placement
+    cpu_cruiser_placement = @cpu_board.valid_cruiser_placements.sample
+    @cpu_board.place(@cpu_cruiser, cpu_cruiser_placement)
+    cpu_sub_placement = @cpu_board.valid_submarine_placements.sample
+    while @cpu_board.valid_placement?(@cpu_submarine, cpu_sub_placement) == false
+      cpu_sub_placement = @cpu_board.valid_submarine_placements.sample
+    end
+    @cpu_board.place(@cpu_submarine, cpu_sub_placement)
   end
 
   def player_cruiser_placement

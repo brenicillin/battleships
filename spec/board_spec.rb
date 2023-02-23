@@ -109,10 +109,10 @@ RSpec.describe Board do
         expect(board.coordinates_consecutive_vertical?(['A1', 'A3', 'A4'])).to eq(false)
         expect(board.coordinates_consecutive_horizontal?(['A1', 'C2', 'D2'])).to eq(false)
 
-        # expect(board.coordinates_consecutive_vertical?(['A1', 'B1'])).to eq(true)
-        # expect(board.coordinates_consecutive_horizontal?(['A1','A2'])).to eq(true)
-        # expect(board.coordinates_consecutive_vertical?(['A1', 'B2'])).to eq(false)
-        # expect(board.coordinates_consecutive_horizontal?(['B1', 'B3'])).to eq(false)
+        expect(board.coordinates_consecutive_vertical?(['A1', 'B1'])).to eq(true)
+        expect(board.coordinates_consecutive_horizontal?(['A1','A2'])).to eq(true)
+        expect(board.coordinates_consecutive_vertical?(['A1', 'B2'])).to eq(false)
+        expect(board.coordinates_consecutive_horizontal?(['B1', 'B3'])).to eq(false)
       end
 
     it 'creates array of valid cruiser placements' do
