@@ -172,16 +172,4 @@ class Board
         %w(D3 D4)
       ]
     end
-    
-    # def valid_placement?(ship, ship_coordinates)
-    #   if ship.length == ship_coordinates.length && validate_cell(ship_coordinates)
-    #     if ship.length == 3
-    #       valid_cruiser_placements.include?(ship_coordinates)
-    #     elsif ship.length == 2
-    #       valid_submarine_placements.include?(ship_coordinates)
-    #     end
-    #   else false
-    #   end
-    # end
-  # end
 end
