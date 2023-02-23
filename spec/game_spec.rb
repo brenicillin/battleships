@@ -30,13 +30,19 @@ RSpec.describe Game do
   end
 
   describe '#start_game' do
+    it 'displays a welcome message' do
+      game = Game.new
+
+      expect { game.welcome }.to output("\nWelcome to BATTLESHIP\nEnter P to play. Enter Q to quit.\n").to_stdout
+    end
+    
     it 'places CPU ships automatically' do
       game = Game.new
       game.setup_game
       game.cpu_setup
       
       expect(game.cpu_board.render == game.cpu_board.render(true)).to eq(false)
-    end
+    end    
   end
 
   describe '#cpu_shot' do
