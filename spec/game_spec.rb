@@ -7,12 +7,6 @@ RSpec.describe Game do
 
       expect(game).to be_a(Game)
     end
-
-    it 'has welcome message' do
-      game = Game.new
-
-      # expect(game.start).to eq("Welcome to BATTLESHIP\nEnter p to play. Enter q to quit")
-    end
   end
 
   describe '#setup' do
@@ -25,7 +19,6 @@ RSpec.describe Game do
       expect(game.cpu_cruiser).to be_a(Ship)
     end
   
-
     it 'creates player ships and board' do
       game = Game.new
       game.setup_game

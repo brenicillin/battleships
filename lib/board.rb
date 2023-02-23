@@ -29,8 +29,7 @@ class Board
   def valid_placement?(ship, coordinates)
     if ship.length == coordinates.length && validate_cell(coordinates)
       coordinates_consecutive_horizontal?(coordinates) || coordinates_consecutive_vertical?(coordinates)
-    else 
-      false
+    else false
     end
   end
   
@@ -75,6 +74,7 @@ class Board
   
   def validate_cell(ship_coordinates)
     ship_coordinates.each.all? do |cell|
+      return false unless cells.keys.include?(cell)
       cells[cell].empty?
     end
   end
@@ -172,16 +172,4 @@ class Board
         %w(D3 D4)
       ]
     end
-    
-    # def valid_placement?(ship, ship_coordinates)
-    #   if ship.length == ship_coordinates.length && validate_cell(ship_coordinates)
-    #     if ship.length == 3
-    #       valid_cruiser_placements.include?(ship_coordinates)
-    #     elsif ship.length == 2
-    #       valid_submarine_placements.include?(ship_coordinates)
-    #     end
-    #   else false
-    #   end
-    # end
-  # end
 end
