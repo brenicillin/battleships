@@ -74,7 +74,7 @@ class Board
   
   def validate_cell(ship_coordinates)
     ship_coordinates.each.all? do |cell|
-      return false unless cells.keys.include?(cell)
+      return false unless valid_coordinate?(cell)
       cells[cell].empty?
     end
   end

@@ -19,7 +19,7 @@ class Game
   end
 
   def start
-    welcome = "\nWelcome to BATTLESHIP\nEnter p to play. Enter q to quit\n"
+    welcome = "\nWelcome to BATTLESHIP\nEnter P to play. Enter Q to quit.\n"
     puts welcome
     input = gets.chomp
     if input.upcase == 'P'
@@ -103,14 +103,14 @@ class Game
     print "\nWhere do you want to shoot?  Enter coordinate.\n"
       @player_shot = gets.chomp.upcase
       while @cpu_board.valid_coordinate?(@player_shot) == false
-        puts 'Please select a target coordinate on the board'
+        puts 'Please select a target coordinate on the board.'
         @player_shot = gets.chomp.upcase
       end
   end
 
   def player_invalid_target
     while @cpu_board.cells[@player_shot].fired_upon? == true
-      puts 'You have aleady fired upon that coordinate'
+      puts 'You have aleady fired upon that coordinate.'
       @player_shot = gets.chomp.upcase
     end
     @cpu_board.cells[@player_shot].fire_upon
@@ -175,15 +175,15 @@ class Game
 
   def player_submarine_placement
     puts "\nEnter submarine coordinates: ex: B2 C2"
-    player_submarine_coordinates = gets.chomp.upcase.split
-    print player_submarine_coordinates.to_s
-    while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates) == false
+    player_submarine_coordinates = []
+    puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
+    while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates[0]) == false
       puts "Those are invalid coordinates. Try again."
-      player_submarine_coordinates = gets.chomp.upcase.split
-      print player_submarine_coordinates.to_s
+      player_submarine_coordinates = []
+      puts "#{player_submarine_coordinates << gets.chomp.upcase.split}"
     end
-    @player_board.place(@player_submarine, player_submarine_coordinates)
-    print @player_board.render(true)
+    @player_board.place(@player_submarine, player_submarine_coordinates[0])
+    puts @player_board.render(true)
   end
 
   def play
