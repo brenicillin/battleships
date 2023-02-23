@@ -103,19 +103,19 @@ RSpec.describe Board do
   end
 
   describe '#helper methods' do
-      it 'can ensure coordinates are valid vertically and horizontally' do
-        board = Board.new
+    it 'can ensure coordinates are valid vertically and horizontally' do
+      board = Board.new
 
-        expect(board.coordinates_consecutive_vertical?(['A1', 'B1', 'C1'])).to eq(true)
-        expect(board.coordinates_consecutive_horizontal?(['A1', 'A2', 'A3'])).to eq(true)
-        expect(board.coordinates_consecutive_vertical?(['A1', 'A3', 'A4'])).to eq(false)
-        expect(board.coordinates_consecutive_horizontal?(['A1', 'C2', 'D2'])).to eq(false)
+      expect(board.coordinates_consecutive_vertical?(['A1', 'B1', 'C1'])).to eq(true)
+      expect(board.coordinates_consecutive_horizontal?(['A1', 'A2', 'A3'])).to eq(true)
+      expect(board.coordinates_consecutive_vertical?(['A1', 'A3', 'A4'])).to eq(false)
+      expect(board.coordinates_consecutive_horizontal?(['A1', 'C2', 'D2'])).to eq(false)
 
-        expect(board.coordinates_consecutive_vertical?(['A1', 'B1'])).to eq(true)
-        expect(board.coordinates_consecutive_horizontal?(['A1','A2'])).to eq(true)
-        expect(board.coordinates_consecutive_vertical?(['A1', 'B2'])).to eq(false)
-        expect(board.coordinates_consecutive_horizontal?(['B1', 'B3'])).to eq(false)
-      end
+      expect(board.coordinates_consecutive_vertical?(['A1', 'B1'])).to eq(true)
+      expect(board.coordinates_consecutive_horizontal?(['A1','A2'])).to eq(true)
+      expect(board.coordinates_consecutive_vertical?(['A1', 'B2'])).to eq(false)
+      expect(board.coordinates_consecutive_horizontal?(['B1', 'B3'])).to eq(false)
+    end
 
     it 'creates array of valid cruiser placements' do
       board = Board.new
@@ -131,17 +131,17 @@ RSpec.describe Board do
       expect(board.valid_submarine_placements.length).to eq(24)
     end
 
-   it 'can validate cell placement' do
-      board = Board.new
-      cruiser = Ship.new('Cruiser', 3)
-      submarine = Ship.new('Submarine', 2)
-      board.place(cruiser, ['A1', 'A2', 'A3'])
+    it 'can validate cell placement' do
+        board = Board.new
+        cruiser = Ship.new('Cruiser', 3)
+        submarine = Ship.new('Submarine', 2)
+        board.place(cruiser, ['A1', 'A2', 'A3'])
 
-      expect(board.validate_cell(['A1', 'B1', 'C1'])).to eq(false)
-      expect(board.validate_cell(['A1', 'A2', 'A3'])).to eq(false)
-      expect(board.validate_cell(['C1', 'D1', 'E1'])).to eq(false)
-      expect(board.validate_cell(['A4', 'B4', 'VB'])).to eq(false)
-      expect(board.validate_cell(['B1', 'B2', 'B3'])).to eq(true)
+        expect(board.validate_cell(['A1', 'B1', 'C1'])).to eq(false)
+        expect(board.validate_cell(['A1', 'A2', 'A3'])).to eq(false)
+        expect(board.validate_cell(['C1', 'D1', 'E1'])).to eq(false)
+        expect(board.validate_cell(['A4', 'B4', 'VB'])).to eq(false)
+        expect(board.validate_cell(['B1', 'B2', 'B3'])).to eq(true)
     end
   end
 end
