@@ -137,6 +137,8 @@ RSpec.describe Board do
 
       expect(board.validate_cell(['A1', 'B1', 'C1'])).to eq(false)
       expect(board.validate_cell(['A1', 'A2', 'A3'])).to eq(false)
+      expect(board.validate_cell(['C1', 'D1', 'E1'])).to eq(false)
+      expect(board.validate_cell(['A4', 'B4', 'VB'])).to eq(false)
       expect(board.validate_cell(['B1', 'B2', 'B3'])).to eq(true)
     end
   end
