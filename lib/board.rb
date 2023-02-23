@@ -171,5 +171,5 @@ class Board
         %w(D2 D3),
         %w(D3 D4)
       ]
-    end
+  end
 end

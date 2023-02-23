@@ -19,8 +19,7 @@ class Game
   end
 
   def start
-    welcome = "\nWelcome to BATTLESHIP\nEnter P to play. Enter Q to quit.\n"
-    puts welcome
+    welcome
     input = gets.chomp
     if input.upcase == 'P'
       clear
@@ -101,11 +100,11 @@ class Game
   
   def player_select_target
     print "\nWhere do you want to shoot?  Enter coordinate.\n"
+    @player_shot = gets.chomp.upcase
+    while @cpu_board.valid_coordinate?(@player_shot) == false
+      puts 'Please select a target coordinate on the board.'
       @player_shot = gets.chomp.upcase
-      while @cpu_board.valid_coordinate?(@player_shot) == false
-        puts 'Please select a target coordinate on the board.'
-        @player_shot = gets.chomp.upcase
-      end
+    end
   end
 
   def player_invalid_target
@@ -132,6 +131,11 @@ class Game
     end
   end
   
+  def welcome
+    welcome = "\nWelcome to BATTLESHIP\nEnter P to play. Enter Q to quit.\n"
+    puts welcome
+  end
+
   def cpu_introduction
     puts 'I have laid out my ships on the grid.'
     puts 'You now need to lay out your two ships.'
