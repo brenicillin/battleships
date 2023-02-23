@@ -54,67 +54,23 @@ class Game
     
   def player_setup
     clear
-    puts 'I have laid out my ships on the grid.'
-    puts 'You now need to lay out your two ships.'
-    puts 'The cruiser is 3 units long and the submarine is 2 units long.'
-    puts @player_board.render(true)
-    
-    puts "\nEnter cruiser coordinates: ex: A1 A2 A3"
-    player_cruiser_coordinates = []
-    puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
-    while @player_board.valid_placement?(@player_cruiser, player_cruiser_coordinates[0]) == false
-      puts 'Those are invalid coordinates. Try again.'
-      player_cruiser_coordinates = []
-      puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
-    end
-    @player_board.place(@player_cruiser, player_cruiser_coordinates[0])
-    
-    clear
-    puts @player_board.render(true)
-    
-    puts "\nEnter submarine coordinates: ex: B2 C2"
-    player_submarine_coordinates = gets.chomp.upcase.split
-    print player_submarine_coordinates.to_s
-    while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates) == false
-      puts "Those are invalid coordinates. Try again."
-      player_submarine_coordinates = gets.chomp.upcase.split
-      print player_submarine_coordinates.to_s
-    end
-    @player_board.place(@player_submarine, player_submarine_coordinates)
-    
-    print @player_board.render(true)
-  end
-  
-  def display_boards
-    print "\n"
-    print "==========COMPUTER BOARD==========\n"
-    print @cpu_board.render
-    print "\n"
-    print "===========PLAYER BOARD===========\n"
-    print @player_board.render(true) #ask about writing this test
-    print "\n"
+    cpu_introduction
+    player_cruiser_placement
+    player_submarine_placement
   end
   
   def players_shot
-    print "\nWhere do you want to shoot?  Enter coordinate.\n"
-    @player_shot = gets.chomp.upcase
-    while @cpu_board.valid_coordinate?(@player_shot) == false
-      puts 'Please select a target coordinate on the board'
-      @player_shot = gets.chomp.upcase
-    end
-    while @cpu_board.cells[@player_shot].fired_upon? == true
-      puts 'You have aleady fired upon that coordinate'
-      @player_shot = gets.chomp.upcase
-    end
-    @cpu_board.cells[@player_shot].fire_upon
+    player_select_target
+    player_invalid_target
   end
     
   def cpus_shot
-    @cpu_shot = @player_board.cells.keys.sample
-    while @player_board.cells[@cpu_shot].fired_upon? == true
-      @cpu_shot = @player_board.cells.keys.sample
-    end
-    @player_board.cells[@cpu_shot].fire_upon
+    cpu_select_target
+  end
+
+  def shot_results
+    cpu_shot_results
+    player_shot_results
   end
 
   def cpu_shot_results
@@ -134,18 +90,38 @@ class Game
       pp "Your shot on #{@player_shot} was a MISS!"
     elsif @cpu_board.cells[@player_shot].empty? == false
       if @cpu_board.cells[@player_shot].ship.health >= 1
-      pp "Your shot on #{@player_shot} was a HIT!"
+        pp "Your shot on #{@player_shot} was a HIT!"
       else
         pp "Your shot on #{@player_shot} sunk my #{@cpu_board.cells[@player_shot].ship.name}!"
       end
     end
   end
-
-  def shot_results
-    cpu_shot_results
-    player_shot_results
-  end
     
+  def cpu_select_target
+    @cpu_shot = @player_board.cells.keys.sample
+    while @player_board.cells[@cpu_shot].fired_upon? == true
+      @cpu_shot = @player_board.cells.keys.sample
+    end
+    @player_board.cells[@cpu_shot].fire_upon
+  end
+  
+  def player_select_target
+    print "\nWhere do you want to shoot?  Enter coordinate.\n"
+      @player_shot = gets.chomp.upcase
+      while @cpu_board.valid_coordinate?(@player_shot) == false
+        puts 'Please select a target coordinate on the board'
+        @player_shot = gets.chomp.upcase
+      end
+  end
+
+  def player_invalid_target
+    while @cpu_board.cells[@player_shot].fired_upon? == true
+      puts 'You have aleady fired upon that coordinate'
+      @player_shot = gets.chomp.upcase
+    end
+    @cpu_board.cells[@player_shot].fire_upon
+  end
+
   def player_has_lost?
     @player_cruiser.sunk? && @player_submarine.sunk?
   end
@@ -162,6 +138,50 @@ class Game
     end
   end
   
+  def cpu_introduction
+    puts 'I have laid out my ships on the grid.'
+    puts 'You now need to lay out your two ships.'
+    puts 'The cruiser is 3 units long and the submarine is 2 units long.'
+    puts @player_board.render(true)
+  end
+ 
+  def display_boards
+    print "\n"
+    print "==========COMPUTER BOARD==========\n"
+    print @cpu_board.render
+    print "\n"
+    print "===========PLAYER BOARD===========\n"
+    print @player_board.render(true)
+    print "\n"
+  end
+
+  def player_cruiser_placement
+    puts "\nEnter cruiser coordinates: ex: A1 A2 A3"
+    player_cruiser_coordinates = []
+    puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
+    while @player_board.valid_placement?(@player_cruiser, player_cruiser_coordinates[0]) == false
+      puts 'Those are invalid coordinates. Try again.'
+      player_cruiser_coordinates = []
+      puts "#{player_cruiser_coordinates << gets.chomp.upcase.split}"
+    end
+    @player_board.place(@player_cruiser, player_cruiser_coordinates[0])
+    clear
+    puts @player_board.render(true)
+  end
+
+  def player_submarine_placement
+    puts "\nEnter submarine coordinates: ex: B2 C2"
+    player_submarine_coordinates = gets.chomp.upcase.split
+    print player_submarine_coordinates.to_s
+    while @player_board.valid_placement?(@player_submarine, player_submarine_coordinates) == false
+      puts "Those are invalid coordinates. Try again."
+      player_submarine_coordinates = gets.chomp.upcase.split
+      print player_submarine_coordinates.to_s
+    end
+    @player_board.place(@player_submarine, player_submarine_coordinates)
+    print @player_board.render(true)
+  end
+
   def play
     while player_has_lost? == false && cpu_has_lost? == false
       display_boards
